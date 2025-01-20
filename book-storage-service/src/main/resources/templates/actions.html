@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actions</title>
+</head>
+<body>
+    <ul style="list-style-type: none">
+        <li>
+            <a th:href="@{/open_add_form}">Добавление книги</a>
+        </li>
+        <li>
+            <form action="/books/search_by_id" method="get">
+                <label for="book_id">Введите ID книги для поиска:</label>
+                <input type="text" id="book_id" name="id" required>
+                <button type="submit">Поиск</button>
+            </form>
+        </li>
+        <li>
+            <form action="/books/search_by_isbn" method="get">
+                <label for="isbn">Введите ISBN книги для поиска:</label>
+                <input type="text" id="isbn" name="isbn" required>
+                <button type="submit">Поиск</button>
+            </form>
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(books)&&searched_book==null}">Нет доступных книг.</p>
+    <table th:if="${!#lists.isEmpty(books)||searched_book!=null}">
+        <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Название</th>
+            <th>Жанр</th>
+            <th>Описание</th>
+            <th>Автор</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${!#lists.isEmpty(books)}" th:each="book, stat : ${books}">
+            <td th:text="${stat.index+1}">
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.description}"></td>
+            <td th:text="${book.author}"></td>
+            <td><a th:href="@{/open_update_form/{id}(id=${book.id})}">Изменить</a><td>
+            <td><a th:href="@{/delete/{id}(id=${book.id})}">Удалить</a></td>
+        </tr>
+        <tr th:if="${searched_book!=null}" th:object="${searched_book}">
+            <td></td>
+            <td th:text="${searched_book.isbn}"></td>
+            <td th:text="${searched_book.name}"></td>
+            <td th:text="${searched_book.genre}"></td>
+            <td th:text="${searched_book.description}"></td>
+            <td th:text="${searched_book.author}"></td>
+            <td><a th:href="@{/open_update_form/{id}(id=${searched_book.id})}">Изменить</a><td>
+            <td><a th:href="@{/delete/{id}(id=${searched_book.id})}">Удалить</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>
