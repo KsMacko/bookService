@@ -1,9 +1,9 @@
 package com.example.bookstorageservice.controller;
 
-import com.example.bookstorageservice.entity.BookEntity;
+import com.example.bookstorageservice.commandHandlers.command.DeleteBookById;
+import com.example.bookstorageservice.commandHandlers.command.SaveBookToDatabase;
+import com.example.bookstorageservice.commandHandlers.dispatcher.BookCommandDispatcher;
 import com.example.bookstorageservice.entity.DTO.BookDto;
-import com.example.bookstorageservice.entity.DTO.BookHandler;
-import com.example.bookstorageservice.repo.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,26 +11,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.NoSuchElementException;
-
 @Controller
 public class BookCommandController {
-    @Autowired private BookRepo bookRepo;
-    @Autowired private BookHandler bookHandler;
+    private final BookCommandDispatcher bookCommandDispatcher;
+    @Autowired
+    public BookCommandController(BookCommandDispatcher bookCommandDispatcher) {
+        this.bookCommandDispatcher = bookCommandDispatcher;
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id){
-        try {
-            bookRepo.deleteById(id);
-        }catch(NoSuchElementException e){
-            System.out.println(id+" not found");
-        }
-
+        bookCommandDispatcher.dispatch(new DeleteBookById(id));
         return "redirect:/";
     }
     @PostMapping("/save")
     public String saveBook(@ModelAttribute("book") BookDto bookDto){
-        BookEntity book = bookHandler.handleToEntity(bookDto);
-        bookRepo.save(book);
+        bookCommandDispatcher.dispatch(new SaveBookToDatabase(bookDto));
         return "redirect:/";
     }
 }

@@ -24,8 +24,8 @@
             </form>
         </li>
     </ul>
-    <p th:if="${#lists.isEmpty(books)&&searched_book==null}">Нет доступных книг.</p>
-    <table th:if="${!#lists.isEmpty(books)||searched_book!=null}">
+    <p th:if="${#lists.isEmpty(books)}">Нет доступных книг.</p>
+    <table th:if="${!#lists.isEmpty(books)}">
         <thead>
         <tr>
             <th>ISBN</th>
@@ -38,23 +38,13 @@
         <tbody>
         <tr th:if="${!#lists.isEmpty(books)}" th:each="book, stat : ${books}">
             <td th:text="${stat.index+1}">
-            <td th:text="${book.isbn}"></td>
-            <td th:text="${book.name}"></td>
-            <td th:text="${book.genre}"></td>
-            <td th:text="${book.description}"></td>
-            <td th:text="${book.author}"></td>
-            <td><a th:href="@{/open_update_form/{id}(id=${book.id})}">Изменить</a><td>
-            <td><a th:href="@{/delete/{id}(id=${book.id})}">Удалить</a></td>
-        </tr>
-        <tr th:if="${searched_book!=null}" th:object="${searched_book}">
-            <td></td>
-            <td th:text="${searched_book.isbn}"></td>
-            <td th:text="${searched_book.name}"></td>
-            <td th:text="${searched_book.genre}"></td>
-            <td th:text="${searched_book.description}"></td>
-            <td th:text="${searched_book.author}"></td>
-            <td><a th:href="@{/open_update_form/{id}(id=${searched_book.id})}">Изменить</a><td>
-            <td><a th:href="@{/delete/{id}(id=${searched_book.id})}">Удалить</a></td>
+            <td th:text="${book.bookDto.isbn}"></td>
+            <td th:text="${book.bookDto.name}"></td>
+            <td th:text="${book.bookDto.genre}"></td>
+            <td th:text="${book.bookDto.description}"></td>
+            <td th:text="${book.bookDto.author}"></td>
+            <td><a th:href="@{/open_update_form/{id}(id=${book.bookDto.id})}">Изменить</a><td>
+            <td><a th:href="@{/delete/{id}(id=${book.bookDto.id})}">Удалить</a></td>
         </tr>
 
         </tbody>

@@ -1,5 +1,6 @@
 package com.example.bookstorageservice.controller;
 
+import com.example.bookstorageservice.entity.DTO.BookDetailsDto;
 import com.example.bookstorageservice.entity.DTO.BookDto;
 import com.example.bookstorageservice.queryHandlers.dispatcher.BookQueryDispatcher;
 import com.example.bookstorageservice.queryHandlers.query.FindAllBooksQuery;
@@ -23,7 +24,7 @@ public class BookQueryController {
 
     @GetMapping("/")
     public String getMainPage(Model model){
-        List<BookDto> books = bookQueryDispatcher.dispatch(new FindAllBooksQuery());
+        List<BookDetailsDto> books = bookQueryDispatcher.dispatch(new FindAllBooksQuery());
         model.addAttribute("books", books);
         return "actions";
     }
@@ -34,7 +35,7 @@ public class BookQueryController {
     }
     @GetMapping("/open_update_form/{id}")
     public String updateBook(@PathVariable Long id, Model model){
-        List<BookDto> bookDtos = bookQueryDispatcher.dispatch(new FindBookById(id));
+        List<BookDetailsDto> bookDtos = bookQueryDispatcher.dispatch(new FindBookById(id));
         model.addAttribute("book", bookDtos.get(0));
         return "update_book";
     }

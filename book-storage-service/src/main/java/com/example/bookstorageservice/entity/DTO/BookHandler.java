@@ -3,6 +3,8 @@ package com.example.bookstorageservice.entity.DTO;
 import com.example.bookstorageservice.entity.BookEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.stereotype.Component;
 
 @Component
