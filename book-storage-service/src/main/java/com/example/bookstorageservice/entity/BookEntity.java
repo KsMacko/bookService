@@ -1,4 +1,4 @@
-package com.example.bookstorageservice;
+package com.example.bookstorageservice.entity;
 
 
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity {
+public class BookEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

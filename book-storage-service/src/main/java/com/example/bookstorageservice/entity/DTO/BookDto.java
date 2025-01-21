@@ -1,10 +1,10 @@
-package com.example.bookstorageservice;
+package com.example.bookstorageservice.entity.DTO;
 
 import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDto {
+public class BookDto extends BaseDto{
     private Long id;
     private String isbn;
     private String name;
