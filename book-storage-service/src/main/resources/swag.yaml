@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  version: 1.0
+  description: API documentation for your application
+servers:
+  - url: http://localhost:8080
+    description: book-storage-service
+security:
+  - bearerAuth: []
+paths:
+  /:
+    get:
+      summary: Show Login Page
+      description: Displays the login page.
+      responses:
+        '200':
+          description: Successful operation
+  /show_reg_form:
+    get:
+      summary: Show Registration Page
+      description: Displays the registration page.
+      responses:
+        '200':
+          description: Successful operation
+  /auth:
+    post:
+      summary: Create Auth Token
+      description: Creates a new authentication token for the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: user
+                password:
+                  type: string
+                  example: pass
+      responses:
+        '200':
+          description: Token created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: your-authentication-token
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request
+  /registration:
+    post:
+      summary: Register User
+      description: Registers a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: new_user
+                password:
+                  type: string
+                  example: new_pass
+      responses:
+        '201':
+          description: User registered successfully
+  /book/:
+    get:
+      summary: Get Main Page
+      description: Displays the main page with all books.
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/open_add_form:
+    get:
+      summary: Open Add Book Form
+      description: Opens the form to add a new book.
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/open_update_form/{id}:
+    get:
+      summary: Open Update Book Form
+      description: Opens the form to update an existing book.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/search_by_id:
+    get:
+      summary: Search Book by ID
+      description: Searches for a book by its ID.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/search_by_isbn:
+    get:
+      summary: Search Book by ISBN
+      description: Searches for a book by its ISBN.
+      parameters:
+        - name: isbn
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/open_update_tracker/{id}:
+    get:
+      summary: Open Change Status Page
+      description: Opens the page to change the status of a book.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/openHistory_byBook/{bookId}:
+    get:
+      summary: Open Book History
+      description: Opens the history page of a book.
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/show_free:
+    get:
+      summary: Show Free Books
+      description: Displays a list of available books.
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/delete/{id}:
+    delete:
+      summary: Delete Book
+      description: Deletes a book by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successfully deleted the book
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/save:
+    post:
+      summary: Save Book
+      description: Saves a new book to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDto'
+      responses:
+        '201':
+          description: Book saved successfully
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+  /book/tracker/update:
+    put:
+      summary: Update Tracker
+      description: Updates the status of a book tracker.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookTracker'
+      responses:
+        '200':
+          description: Tracker updated successfully
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Status:
+      type: string
+      enum:
+        - AVAILABLE
+        - BORROWED
+        - OVERDUE
+        - RENEWED
+    BookDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        isbn:
+          type: string
+        name:
+          type: string
+        genre:
+          type: string
+        description:
+          type: string
+        author:
+          type: string
+    BookTracker:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        bookId:
+          type: integer
+          format: int64
+        bookStatus:
+          $ref: '#/components/schemas/Status'
+        borrowDate:
+          type: string
+          format: date
+        returnDate:
+          type: string
+          format: date
+        deleted:
+          type: boolean
+    BookDetailsDto:
+      type: object
+      properties:
+        bookDto:
+          $ref: '#/components/schemas/BookDto'
+        bookTracker:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookTracker'
+

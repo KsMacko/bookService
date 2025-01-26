@@ -25,9 +25,7 @@ public class GetTrackerByBookIdHandler implements QueryHandler<GetTrackerByBookI
 
     @Override
     public List<BookTrackerDto> execute(GetTrackerByBookId query) {
-        List<BookTrackerDto> trackers = new ArrayList<>();
-        BookTracker tracker = trackerRepo.findByBookId(query.getBookId());
-        if(tracker!=null) trackers.add(trackerHandler.handleToDto(tracker));
-        return trackers;
+        return trackerRepo.findAllByBookIdOrderByBorrowDateDesc(query.getBookId())
+                .stream().map(trackerHandler::handleToDto).toList();
     }
 }

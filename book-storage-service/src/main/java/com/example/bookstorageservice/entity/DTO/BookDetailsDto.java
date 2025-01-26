@@ -1,27 +1,17 @@
 package com.example.bookstorageservice.entity.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookDetailsDto extends BaseDto{
     private BookDto bookDto;
-    private BookTracker bookTracker;
-
-    public BookDetailsDto(BookDto bookDto, BookTracker bookTracker) {
-        this.bookDto = bookDto;
-        this.bookTracker = bookTracker;
-    }
-
-    public BookTracker getBookTracker() {
-        return bookTracker;
-    }
-
-    public BookDto getBookDto() {
-        return bookDto;
-    }
-
-    public void setBookDto(BookDto bookDto) {
-        this.bookDto = bookDto;
-    }
-
-    public void setBookTracker(BookTracker bookTracker) {
-        this.bookTracker = bookTracker;
-    }
+    private List<BookTracker> bookTracker;
 }

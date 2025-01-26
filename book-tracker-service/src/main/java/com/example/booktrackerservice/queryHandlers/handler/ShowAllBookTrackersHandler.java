@@ -22,6 +22,6 @@ public class ShowAllBookTrackersHandler implements QueryHandler<ShowAllBookTrack
 
     @Override
     public List<BookTrackerDto> execute(ShowAllBookTrackers query) {
-        return trackerRepo.findAll().stream().map(trackerHandler::handleToDto).toList();
+        return trackerRepo.findAllByOrderByBorrowDateDesc().stream().map(trackerHandler::handleToDto).toList();
     }
 }

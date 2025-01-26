@@ -12,6 +12,7 @@ import java.util.Map;
 @Component
 public class BookCommandDispatcher implements CommandDispatch{
     private final Map<Class<? extends BaseCommand>, CommandHandler<? extends BaseCommand>> handlers = new HashMap<>();
+
     public BookCommandDispatcher(List<CommandHandler<? extends BaseCommand>> commandHandlers){
         for(CommandHandler<? extends BaseCommand> handler:commandHandlers){
             Class<? extends BaseCommand> commandType = getCommandType(handler);

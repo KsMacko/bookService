@@ -1,62 +1,27 @@
 package com.example.bookstorageservice.entity.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 
-public class BookTracker {
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookTracker extends BaseDto{
+    private Long id;
     private Long bookId;
-    private Status status;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
+    private Status bookStatus;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date borrowDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date returnDate;
     private boolean deleted;
-    public BookTracker() {
-    }
-
-    public BookTracker(Long bookId, Status status, LocalDate borrowDate, LocalDate returnDate, boolean deleted) {
-        this.bookId = bookId;
-        this.status = status;
-        this.borrowDate = borrowDate;
-        this.returnDate = returnDate;
-        this.deleted = deleted;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setBorrowDate(LocalDate borrowDate) {
-        this.borrowDate = borrowDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public LocalDate getBorrowDate() {
-        return borrowDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
 }

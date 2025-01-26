@@ -2,21 +2,22 @@ package com.example.booktrackerservice.entities;
 
 import com.example.booktrackerservice.entities.Dto.BaseTracker;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.SoftDeleteType;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
+@SoftDelete(strategy = SoftDeleteType.DELETED)
 public class BookTracker  extends BaseTracker {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private Long bookId;
     @Enumerated(EnumType.STRING)
-    private Status status;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
-    private boolean deleted;
+    private Status bookStatus;
+    private Date borrowDate;
+    private Date returnDate;
 
     public void setId(Long id) {
         this.id = id;
@@ -26,20 +27,16 @@ public class BookTracker  extends BaseTracker {
         this.bookId = bookId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setBookStatus(Status status) {
+        this.bookStatus = status;
     }
 
-    public void setBorrowDate(LocalDate borrowDate) {
+    public void setBorrowDate(Date borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public Long getId() {
@@ -50,19 +47,15 @@ public class BookTracker  extends BaseTracker {
         return bookId;
     }
 
-    public Status getStatus() {
-        return status;
+    public Status getBookStatus() {
+        return bookStatus;
     }
 
-    public LocalDate getBorrowDate() {
+    public Date getBorrowDate() {
         return borrowDate;
     }
 
-    public LocalDate getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
     }
 }

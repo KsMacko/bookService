@@ -13,12 +13,12 @@ import java.util.List;
 
 @Repository
 public interface TrackerRepo extends JpaRepository<BookTracker, Long> {
+    void deleteByBookId(Long id);
     @Modifying
-    @Query("UPDATE BookTracker SET deleted=true WHERE bookId= :bookId")
-    void deleteByBookId(@Param("bookId") Long id);
-    @Modifying
-    @Query("UPDATE BookTracker SET status= :status WHERE id= :id")
-    void updateBookTrackerByBookId(@Param("id")Long id, @Param("status") Status status);
-    List<BookTracker> findAllByStatus(Status status);
-    BookTracker findByBookId(Long id);
+    @Query("UPDATE BookTracker SET bookStatus= :status WHERE id= :id")
+    void updateBookTrackerById(@Param("id")Long id, @Param("status") Status status);
+    List<BookTracker> findAllByBookIdOrderByBorrowDateDesc(Long bookId);
+    List<BookTracker> findAllByOrderByBorrowDateDesc();
+    @Query("SELECT bt FROM BookTracker bt WHERE bt.bookStatus = 'AVAILABLE'")
+    List<BookTracker> findFreeBooks();
 }

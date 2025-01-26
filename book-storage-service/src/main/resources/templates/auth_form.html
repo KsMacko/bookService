@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="/style.css"/>
+    <style>
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+<div class="centered-form">
+    <ul style="list-style-type: none">
+        <li>
+            <form th:if="${log}" th:action="@{/auth}" method="post">
+                <label for="log_username">Логин:</label>
+                <input type="text" id="log_username" name="username" required><br><br>
+                <label for="log_password">Пароль:</label>
+                <input type="password" id="log_password" name="password" required><br><br>
+                <button class="btn_design"  type="submit">Войти</button>
+            </form>
+        </li>
+        <li><a th:if="${log}" th:href="@{/show_reg_form}">К регистрации</a></li>
+    </ul>
+</div>
+<div class="centered-form">
+    <ul style="list-style-type: none">
+        <li>
+            <form th:unless="${log}" th:action="@{/registration}" method="post">
+                <label for="reg_username">Логин:</label>
+                <input type="text" id="reg_username" name="username" required><br><br>
+                <label for="reg_password">Пароль:</label>
+                <input type="password" id="reg_password" name="password" required><br><br>
+                <label for="confirmPassword">Подтвердите пароль:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+                <button class="btn_design" style="width: 150px" type="submit">Зарегистрироваться</button>
+            </form>
+        </li>
+        <li><a th:unless="${log}" th:href="@{/}">К авторизации</a></li>
+    </ul>
+</div>
+<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+</body>
+</html>

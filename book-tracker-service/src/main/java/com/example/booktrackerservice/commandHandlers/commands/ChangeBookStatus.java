@@ -1,25 +1,15 @@
 package com.example.booktrackerservice.commandHandlers.commands;
 
-import com.example.booktrackerservice.entities.Status;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.example.booktrackerservice.entities.Dto.BookTrackerDto;
 
 
 public class ChangeBookStatus extends BaseCommand{
-    private Status status;
-    private Long id;
+    private BookTrackerDto bookTrackerDto;
 
-    public ChangeBookStatus(Status status, Long id) {
-        this.status = status;
-        this.id = id;
+    public ChangeBookStatus(BookTrackerDto bookTrackerDto) {
+        this.bookTrackerDto=bookTrackerDto;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Status getStatus() {
-        return status;
+    public BookTrackerDto getBookTrackerDto() {
+        return bookTrackerDto;
     }
 }

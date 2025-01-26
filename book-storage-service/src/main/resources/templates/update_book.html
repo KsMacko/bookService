@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css"/>
 </head>
 <body>
-<form action="#" method="post" th:action="@{/book/save}" th:object="${book}">
+<form th:if="${book!=null}" action="#" method="post" th:action="@{/book/save}" th:object="${book}">
+    <input type="hidden" th:field="*{id}"/>
     <ul style="list-style-type: none">
         <li>
             <label for="isbn">ISBN</label>
-            <input id="isbn" type="text"  th:field="${book.isbn}"/>
+            <input id="isbn" type="text"  th:field="*{isbn}"/>
         </li>
         <li>
             <label for="name">Название</label>
-            <input id="name" type="text"  th:field="${book.name}"/>
+            <input id="name" type="text"  th:field="*{name}"/>
         </li>
         <li>
             <label for="genre">Жанр</label>
-            <input id="genre" type="text" th:field="${book.genre}"/>
+            <input id="genre" type="text" th:field="*{genre}"/>
         </li>
         <li>
             <label for="description">Описание</label>
-            <input id="description" type="text"  th:field="${book.description}"/>
+            <input id="description" type="text"  th:field="*{description}"/>
         </li>
         <li>
             <label for="author">Автор</label>
-            <input id="author" type="text" th:field="${book.author}"/>
+            <input id="author" type="text" th:field="*{author}"/>
         </li>
         <li>
-            <button type="submit">Сохранить</button>
+            <button class="btn_design" type="submit">Сохранить</button>
         </li>
     </ul>
 </form>
-<a th:href = "@{/}">Назад</a>
+<p th:if="${book==null}">Книга не найдена</p>
+<a class="linkToButton"  th:href = "@{/book/}">Назад</a>
 </body>
 </html>

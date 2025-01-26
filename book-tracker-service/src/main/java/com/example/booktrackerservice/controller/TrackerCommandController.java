@@ -1,13 +1,13 @@
 package com.example.booktrackerservice.controller;
 
+import com.example.booktrackerservice.commandHandlers.commands.ChangeBookStatus;
 import com.example.booktrackerservice.commandHandlers.commands.CreateBookTracker;
 import com.example.booktrackerservice.commandHandlers.commands.DeleteTrackerByBookId;
 import com.example.booktrackerservice.commandHandlers.dispatcher.CommandBookTrackerDispatcher;
+import com.example.booktrackerservice.entities.Dto.BookTrackerDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 public class TrackerCommandController {
@@ -20,8 +20,12 @@ public class TrackerCommandController {
     void createBookTracker(@PathVariable Long bookId){
         bookTrackerDispatcher.dispatch(new CreateBookTracker(bookId));
     }
-    @DeleteMapping("delete_tracker/{bookId}")
+    @DeleteMapping("/delete_tracker/{bookId}")
     void deleteBookTracker(@PathVariable Long bookId){
         bookTrackerDispatcher.dispatch(new DeleteTrackerByBookId(bookId));
+    }
+    @PutMapping("/update_tracker")
+    void updateTracker(@RequestBody BookTrackerDto bookTrackerDto){
+        bookTrackerDispatcher.dispatch(new ChangeBookStatus(bookTrackerDto));
     }
 }

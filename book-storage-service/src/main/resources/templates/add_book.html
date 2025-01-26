@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css"/>
 </head>
 <body>
-<form method="post" th:action="@{/save}"  th:object="${book}">
+<form method="post" th:action="@{/book/save}"  th:object="${book}">
     <ul style="list-style-type: none">
         <li>
             <label for="isbn">ISBN</label>
@@ -28,9 +29,10 @@
             <input id="author" type="text" th:field="${book.author}">
         </li>
         <li>
-            <button type="submit">Сохранить</button>
+            <button  class="btn_design" type="submit">Сохранить</button>
         </li>
     </ul>
 </form>
+<a class="linkToButton" th:href = "@{/book/}">Назад</a>
 </body>
 </html>

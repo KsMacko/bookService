@@ -1,5 +1,18 @@
 package com.example.bookstorageservice.entity.DTO;
 
 public enum Status {
-    FREE, BORROWED
+    AVAILABLE("Свободна"),
+    BORROWED("Взята"),
+    OVERDUE("Просрочена"),
+    RENEWED("Продлена");
+
+    private final String displayName;
+
+    Status(String displayName) {
+        this.displayName = displayName;
+    }
+    public String getDisplayName() {
+        return displayName;
+    }
+
 }

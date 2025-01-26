@@ -3,60 +3,61 @@ package com.example.booktrackerservice.entities.Dto;
 import com.example.booktrackerservice.entities.Status;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class BookTrackerDto {
+    private Long id;
     private Long bookId;
-    private Status status;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
-    private boolean deleted;
+    private Status bookStatus;
+    private Date borrowDate;
+    private Date returnDate;
     public BookTrackerDto() {
     }
-    public BookTrackerDto(Long bookId, Status status, LocalDate borrowDate, LocalDate returnDate, boolean deleted) {
+    public BookTrackerDto(Long id, Long bookId, Status bookStatus, Date borrowDate, Date returnDate) {
+        this.id=id;
         this.bookId = bookId;
-        this.status = status;
+        this.bookStatus = bookStatus;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
-        this.deleted = deleted;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Long getBookId() {
         return bookId;
     }
 
-    public Status getStatus() {
-        return status;
+    public Status getBookStatus() {
+        return bookStatus;
     }
 
-    public LocalDate getBorrowDate() {
+    public Date getBorrowDate() {
         return borrowDate;
     }
 
-    public LocalDate getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
     }
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setBorrowDate(LocalDate borrowDate) {
+    public void setBookStatus(Status bookStatus) {
+        this.bookStatus = bookStatus;
+    }
+
+    public void setBorrowDate(Date borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }

@@ -19,7 +19,7 @@ public class CreateBookTrackerHandler implements CommandHandler<CreateBookTracke
     public void execute(CreateBookTracker command) {
         BookTracker bookTracker = new BookTracker();
         bookTracker.setBookId(command.getBookId());
-        bookTracker.setStatus(Status.FREE);
+        bookTracker.setBookStatus(Status.AVAILABLE);
         trackerRepo.save(bookTracker);
     }
 }
