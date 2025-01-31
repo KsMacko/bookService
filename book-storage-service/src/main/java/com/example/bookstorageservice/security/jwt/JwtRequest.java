@@ -1,12 +1,11 @@
-package com.example.bookstorageservice.security;
+package com.example.bookstorageservice.security.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RegUserDto {
+public class JwtRequest {
     private String username;
     private String password;
-    private String confirmPassword;
 }

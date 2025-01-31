@@ -1,8 +1,5 @@
-package com.example.booktrackerservice.entities;
+package com.example.bookstorageservice.entity;
 
-import lombok.Getter;
-
-@Getter
 public enum Status {
     AVAILABLE("Свободна"),
     BORROWED("Взята"),
@@ -14,4 +11,8 @@ public enum Status {
     Status(String displayName) {
         this.displayName = displayName;
     }
+    public String getDisplayName() {
+        return displayName;
+    }
+
 }
